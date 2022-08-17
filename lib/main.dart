@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'SwiftMeal',
       theme: ThemeData(
         primarySwatch: Colors.lime,
-        accentColor: Colors.brown,
+        accentColor: Colors.indigo,
         canvasColor: Color.fromRGBO(225, 254, 229, 1),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
