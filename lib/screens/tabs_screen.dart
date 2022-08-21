@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+
+import '../widgets/main_drawer.dart';
 import './favourite_screen.dart';
 import './categories_screen.dart';
-import '../widgets/main_drawer.dart';
 import '../models/meal.dart';
 
 class TabsScreen extends StatefulWidget {
-  final List<Meal> favouriteMeals;
+  final List<Meal> favoriteMeals;
 
-  TabsScreen(this.favouriteMeals);
+  TabsScreen(this.favoriteMeals);
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  _TabsScreenState createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
   List<Map<String, Object>> _pages;
-
   int _selectedPageIndex = 0;
 
   @override
@@ -26,8 +26,8 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Categories',
       },
       {
-        'page': FavouritesScreen(widget.favouriteMeals),
-        'title': 'Favorites',
+        'page': FavoritesScreen(widget.favoriteMeals),
+        'title': 'Your Favorite',
       },
     ];
     super.initState();
@@ -49,16 +49,19 @@ class _TabsScreenState extends State<TabsScreen> {
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.limeAccent,
+        selectedItemColor: Theme.of(context).accentColor,
         currentIndex: _selectedPageIndex,
+        // type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
             icon: Icon(Icons.category),
             label: 'Categories',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
             icon: Icon(Icons.favorite),
             label: 'Favorites',
           ),

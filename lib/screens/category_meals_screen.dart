@@ -11,27 +11,32 @@ class CategoryMealsScreen extends StatefulWidget {
   CategoryMealsScreen(this.availableMeals);
 
   @override
-  State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
+  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
 }
 
 class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   String categoryTitle;
   List<Meal> displayedMeals;
+  var _loadedInitData = false;
 
   @override
   void initState() {
+    // ...
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
-    categoryTitle = routeArgs['title'];
-    final categoryId = routeArgs['id'];
-    displayedMeals = widget.availableMeals.where((meal) {
-      return meal.categories.contains(categoryId);
-    }).toList();
+    if (!_loadedInitData) {
+      final routeArgs =
+          ModalRoute.of(context).settings.arguments as Map<String, String>;
+      categoryTitle = routeArgs['title'];
+      final categoryId = routeArgs['id'];
+      displayedMeals = widget.availableMeals.where((meal) {
+        return meal.categories.contains(categoryId);
+      }).toList();
+      _loadedInitData = true;
+    }
     super.didChangeDependencies();
   }
 
@@ -56,7 +61,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
             duration: displayedMeals[index].duration,
             affordability: displayedMeals[index].affordability,
             complexity: displayedMeals[index].complexity,
-            removeItem: _removeMeal,
           );
         },
         itemCount: displayedMeals.length,
